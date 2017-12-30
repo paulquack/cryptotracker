@@ -53,13 +53,11 @@ $user = new CryptoUser('quackau');
 
 if (isset($_POST)){
   $from_account=intval($_POST['from_account']);
-  $from_symbol=CryptoAccount::getSymbol($from_account);
   $from_amount=floatval($_POST['from_amount']);
   $to_account=intval($_POST['to_account']);
-  $to_symbol=CryptoAccount::getSymbol($to_account);
   $to_amount=floatval($_POST['to_amount']);
   $timestamp=$_POST['timestamp'];
-  var_dump(array($from_account,$from_symbol,$from_amount,$to_account,$to_symbol,$to_amount,$timestamp));
+  var_dump(array($from_account,$from_amount,$to_account,$to_amount,$timestamp));
   $result = $user->addTransaction($from_account,$from_symbol,$from_amount,$to_account,$to_symbol,$to_amount,$timestamp);
   if ($result) {
     echo '<div class="alert alert-success alert-dismissable">
