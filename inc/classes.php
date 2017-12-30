@@ -103,7 +103,7 @@ class CryptoAccount {
         $a = mysql_query(sprintf("SELECT `symbol` FROM `accounts` WHERE `id` = %u", $id));
         if (mysql_num_rows($a)) {
             $row = mysql_fetch_row($a);
-            return $a[0];
+            return($row[0]);
         }
         return false;
     }
