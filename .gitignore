@@ -1,2 +1,2 @@
-error_log
-mysql.php
+*/error_log
+inc/mysql.php
