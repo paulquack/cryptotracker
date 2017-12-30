@@ -40,6 +40,7 @@ class CryptoUser {
                                 intval($from_account),mysql_real_escape_string($from_symbol),floatval($from_amount),
                                 intval($to_account),mysql_real_escape_string($to_symbol),floatval($to_amount)));
             if (mysql_affected_rows()==1) $result = true;
+            echo mysql_error();
         }
         $this->accounts[$from_account]->populateTransactions();
         $this->accounts[$to_account]->populateTransactions();
