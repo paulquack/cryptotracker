@@ -41,16 +41,10 @@
               <a class="navbar-brand" href="#">Project name</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <ul class="navbar-nav mr-auto">
-                <li>
-                  <a class="nav-link" href="index.php">Home</a>
-                </li>
-                <li>
-                  <a class="nav-link" href="addTransaction.php">Add Transaction</a>
-                </li>
-                <li>
-                  <a class="nav-link" href="addAccount.php">Add Account</a>
-                </li>
+              <ul class="navbar-nav nav mr-auto">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="addTransaction.php">Add Transaction</a></li>
+                <li><a href="addAccount.php">Add Account</a></li>
               </ul>
             </div>
           </div>
