@@ -116,7 +116,7 @@ if (isset($_POST)){
       <div class="form-group">
         <div class="input-group">
             <div id="datepicker" data-date="0" data-date-format="yyyy-mm-dd"></div>
-            <input type="hidden" id="timestamp" name="timestamp" required>
+            <input type="text" id="timestamp" name="timestamp" required>
         </div>
       </div><br>
       <button type="submit" class="btn btn-primary">Submit</button>
@@ -128,7 +128,9 @@ if (isset($_POST)){
         <script src="js/vendor/bootstrap-datepicker.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-        $('#datepicker').datepicker();
+        $('#datepicker').datepicker({
+          format: "yyyy-mm-dd"
+        });
         $('#datepicker').on('changeDate', function() {
             $('#timestamp').val(
                 $('#datepicker').datepicker('getFormattedDate')
