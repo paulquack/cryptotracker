@@ -1,0 +1,4 @@
+<?php
+@mysql_connect('localhost','cryptotracker','randomPassword');
+@mysql_select_db('cryptotracker');
+?>
