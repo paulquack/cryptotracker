@@ -41,7 +41,7 @@ class CryptoUser {
             $from_symbol = $this->accounts[$from_account]->getSymbol();
             $to_symbol = $this->accounts[$to_account]->getSymbol();
 
-            mysql_query(sprintf("INSERT INTO `transactions`(`from_account`,`from_symbol`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`timestamp`,`notes`) VALUES (%u,'%s',%d,%u,'%s',%d,'%s','%s')",
+            mysql_query(sprintf("INSERT INTO `transactions`(`from_account`,`from_symbol`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`timestamp`,`notes`) VALUES (%u,'%s',%f,%u,'%s',%f,'%s','%s')",
                                 intval($from_account),mysql_real_escape_string($from_symbol),floatval($from_amount),
                                 intval($to_account),mysql_real_escape_string($to_symbol),floatval($to_amount),
                                 $timestamp,mysql_real_escape_string($notes)));
@@ -84,14 +84,14 @@ class CryptoAccount {
         $this->transactions = array();
         $debits = mysql_query(sprintf("SELECT `id`,`timestamp`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`notes` FROM `transactions` WHERE `from_account`=%u", $this->id));
         while ($row = mysql_fetch_assoc($debits)){
-            $description = sprintf("%d %s to \"%s\"", $row['to_amount'], $this->getSymbol($row['to_account']), $this->getNickname($row['to_account']));
+            $description = sprintf("%f %s to \"%s\"", $row['to_amount'], $this->getSymbol($row['to_account']), $this->getNickname($row['to_account']));
             if (!empty($row['notes'])) $description.=" - {$row['notes']}";
             $this->transactions[strtotime($row['timestamp'])] = new CryptoTransaction($row['id'], $row['timestamp'], -$row['from_amount'], $description);
             $this->balance -= $row['from_amount'];
         }
         $credits = mysql_query(sprintf("SELECT `id`,`timestamp`,`to_amount`,`from_account`,`from_symbol`,`from_amount`,`notes` FROM `transactions` WHERE `to_account`=%u", $this->id));
         while ($row = mysql_fetch_assoc($credits)){
-            $description = sprintf("%d %s from \"%s\"", $row['from_amount'], $this->getSymbol($row['from_account']), $this->getNickname($row['from_account']));
+            $description = sprintf("%f %s from \"%s\"", $row['from_amount'], $this->getSymbol($row['from_account']), $this->getNickname($row['from_account']));
             if (!empty($row['notes'])) $description.=" - {$row['notes']}";
             $this->transactions[strtotime($row['timestamp'])] = new CryptoTransaction($row['id'], $row['timestamp'], $row['to_amount'], $description);
             $this->balance += $row['to_amount'];
