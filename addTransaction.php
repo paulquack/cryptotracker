@@ -51,7 +51,7 @@ include('inc/classes.php');
 $username='quackau';
 $user = new CryptoUser('quackau');
 
-if (isset($_POST)){
+if (isset($_POST) and empty(array_diff(array('from_account','from_amount','to_account','to_amount','timestamp'),array_keys($_POST)))){
   $from_account=intval($_POST['from_account']);
   $from_amount=floatval($_POST['from_amount']);
   $to_account=intval($_POST['to_account']);
@@ -116,9 +116,9 @@ if (isset($_POST)){
       <div class="form-group">
         <div class="input-group">
             <div id="datepicker" data-date="0" data-date-format="yyyy-mm-dd"></div>
-            <input type="text" id="timestamp" name="timestamp" required>
+            <input class="form-control" type="text" id="timestamp" name="timestamp" required>
         </div>
-      </div><br>
+      </div><br><br>
       <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
