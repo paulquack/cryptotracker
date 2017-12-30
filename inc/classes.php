@@ -36,7 +36,7 @@ class CryptoUser {
             $from_symbol = $this->accounts[$from_account]->getSymbol();
             $to_symbol = $this->accounts[$to_account]->getSymbol();
 
-            mysql_query(sprintf("INSERT INTO `transactions`(`from_account`,`from_symbol`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`timestamp`) VALUES (%u,'%s',%d,%u,'%s',%d)",
+            mysql_query(sprintf("INSERT INTO `transactions`(`from_account`,`from_symbol`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`timestamp`) VALUES (%u,'%s',%d,%u,'%s',%d,'%s')",
                                 intval($from_account),mysql_real_escape_string($from_symbol),floatval($from_amount),
                                 intval($to_account),mysql_real_escape_string($to_symbol),floatval($to_amount),$timestamp));
             if (mysql_affected_rows()==1) $result = true;
