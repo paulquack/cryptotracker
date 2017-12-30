@@ -24,9 +24,14 @@ class CryptoUser {
     }
 
     public function addAccount($symbol,$nickname){
+        $result = false;
         mysql_query(sprintf("INSER INTO `accounts`(`user_id`,`symbol`,`nickname`) VALUES(%u,'%s','%s')", $this->id, mysql_real_escape_string($symbol), mysql_real_escape_string($nickname)));
-        $id = mysql_insert_id();
-        $this->accounts[$id] = new CryptoAccount($id, $symbol, $nickname);
+        if (mysql_affected_rows()==1){
+          $result = true;
+          $id = mysql_insert_id();
+          $this->accounts[$id] = new CryptoAccount($id, $symbol, $nickname);
+        }
+        return $result;
     }
 
     public function addTransaction($from_account,$from_amount,$to_account,$to_amount,$timestamp = false){
