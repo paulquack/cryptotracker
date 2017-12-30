@@ -12,6 +12,8 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker3.min.css">
+
         <style>
             body {
                 padding-top: 50px;
@@ -100,7 +102,7 @@ $user = new CryptoUser('quackau');
         });
 </script>
         <script src="js/vendor/bootstrap.min.js"></script>
-
+        <script src="js/vendor/bootstrap-datepicker.min.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
