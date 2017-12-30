@@ -54,13 +54,12 @@ $user = new CryptoUser('quackau');
 ?>
 
     <div class="container">
-      <div class="row">
-        <div class="col-md-4">
           <h2>Add Transaction</h2>
           <form action="addTransaction.php" method="post">
-            <div class="form-group">
-              <label for="from_account">From</label><br>
-              <select name="from_account" id="from_account">
+            <div class="form-row">
+              <div class="col-md-4">
+                <label for="from_account">From</label>
+                <select class="form-control" name="from_account" id="from_account">
                 <?php
                 $accounts = $user->getAccounts();
                 foreach ($accounts as $a){
@@ -68,8 +67,11 @@ $user = new CryptoUser('quackau');
                 }
                 ?>
               </select>
-              <label for="from_amount">Amount</label><br>
-              <input type="text" name="from_amount" id="from_amount">
+            </div>
+            <div class="col-md-4">
+
+              <label for="from_amount">Amount</label>
+              <input class="form-control" type="text" name="from_amount" id="from_amount">
             </div>
             <div class="form-group">
               <label for="to_account">To</label><br>
@@ -80,27 +82,30 @@ $user = new CryptoUser('quackau');
                   printf('                <option value="%u">%s (%s)</option>'."\n", $a->getId(), $a->getNickname(), $a->getSymbol());
                 }
                 ?>
-              </select>
+              </select><br>
               <label for="to_amount">Amount</label><br>
               <input type="text" name="to_amount" id="to_amount">
             </div>
-              <label for="timestamp">Date</label><br>
-              <div class="input-group date" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-date-today-button="true">
-                <input type="text" id="timestamp" name="timestamp" class="form-control">
-                <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-th"></span>
-                </div>
-              </div>
+            <div class="form-group">
+              <label for="datepicker">Date</label><br>
+              <div id="datepicker" data-date="0"></div>
+              <input type="hidden" id="timestamp" name="timestamp">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
-        </div>
-      </div>
     </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/vendor/bootstrap-datepicker.min.js"></script>
         <script src="js/main.js"></script>
+        <script>
+        $('#datepicker').datepicker();
+        $('#datepicker').on('changeDate', function() {
+            $('#timestamp').val(
+                $('#datepicker').datepicker('getFormattedDate')
+            );
+        });
+        </script>
     </body>
 </html>
