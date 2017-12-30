@@ -78,13 +78,13 @@ class CryptoAccount {
         $this->transactions = array();
         $debits = mysql_query(sprintf("SELECT `id`,`timestamp`,`from_amount`,`to_account`,`to_symbol`,`to_amount` FROM `transactions` WHERE `from_account`=%u", $this->id));
         while ($row = mysql_fetch_assoc($debits)){
-            $description = sprintf("%d %s to \"%s\"", $row['to_amount'], getSymbol($row['to_account']), getNickname($row['to_account']));
+            $description = sprintf("%d %s to \"%s\"", $row['to_amount'], $this->getSymbol($row['to_account']), $this->getNickname($row['to_account']));
             $this->transactions[strtotime($row['timestamp'])] = new CryptoTransacaion($row['id'], $row['timestamp'], -$row['from_amount'], $description);
             $this->balance -= $row['from_amount'];
         }
         $credits = mysql_query(sprintf("SELECT `id`,`timestamp`,`to_amount`,`from_account`,`from_symbol`,`from_amount` FROM `transactions` WHERE `to_account`=%u", $this->id));
         while ($row = mysql_fetch_assoc($credits)){
-            $description = sprintf("%d %s from \"%s\"", $row['from_amount'], getSymbol($row['from_account']), getNickname($row['from_account']));
+            $description = sprintf("%d %s from \"%s\"", $row['from_amount'], $this->getSymbol($row['from_account']), $this->getNickname($row['from_account']));
             $this->transactions[strtotime($row['timestamp'])] = new CryptoTransacaion($row['id'], $row['timestamp'], $row['to_amount'], $description);
             $this->balance += $row['to_amount'];
         }
