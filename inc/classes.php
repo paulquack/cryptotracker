@@ -30,7 +30,7 @@ class CryptoUser {
           $result = true;
           $id = mysql_insert_id();
           $this->accounts[$id] = new CryptoAccount($id, $symbol, $nickname);
-        }
+        } else { echo mysql_error(); }
         return $result;
     }
 
