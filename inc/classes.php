@@ -25,7 +25,7 @@ class CryptoUser {
 
     public function addAccount($symbol,$nickname){
         $result = false;
-        mysql_query(sprintf("INSER INTO `accounts`(`user_id`,`symbol`,`nickname`) VALUES(%u,'%s','%s')", $this->id, mysql_real_escape_string($symbol), mysql_real_escape_string($nickname)));
+        mysql_query(sprintf("INSERT INTO `accounts`(`user_id`,`symbol`,`nickname`) VALUES(%u,'%s','%s')", $this->id, mysql_real_escape_string($symbol), mysql_real_escape_string($nickname)));
         if (mysql_affected_rows()==1){
           $result = true;
           $id = mysql_insert_id();
