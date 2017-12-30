@@ -18,7 +18,7 @@ class CryptoUser {
     public function populateAccounts(){
         $this->accounts = array();
         $a = mysql_query(sprintf("SELECT `id`,`symbol`,`nickname` FROM `accounts` WHERE `user_id`=%u",intval($this->id)));
-        while ($row = mysql_fetch_assoc($a)) { 
+        while ($row = mysql_fetch_assoc($a)) {
             $this->accounts[$row['id']] = new CryptoAccount($row['id'], $row['symbol'], $row['nickname']);
         }
     }
@@ -42,6 +42,10 @@ class CryptoUser {
 
     public function getId(){
         return $this->id;
+    }
+
+    public function getAccounts(){
+        return $this->accounts;
     }
 }
 
@@ -110,13 +114,17 @@ class CryptoAccount {
         }
     }
 
+    public function getId(){
+        return $this->id;
+    }
+
     public function getStatement(){
         $result = array();
         $balance = 0;
         foreach ($this->transactions as $t){
             $balance += $t->amount;
             $result[] = array(
-                'timestamp'=>$t->timestamp, 
+                'timestamp'=>$t->timestamp,
                 'amount'=>$t->amount,
                 'description'=>$t->desciption,
                 'balance'=>$balance);

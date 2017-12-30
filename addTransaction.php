@@ -42,20 +42,56 @@
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
-    <div class="container">
-      <p>
-        <pre>
+
 <?php
 include('inc/mysql.php');
 include('inc/classes.php');
 $username='quackau';
 $user = new CryptoUser('quackau');
-var_dump($user);
+//    public function addTransaction($from_account,$from_symbol,$from_amount,$to_account,$to_symbol,$to_amount,$timestamp = false)
 ?>
-</pre>
-</p>
-</div>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Add Transaction</h2>
+          <form action="addTransaction.php" method="post">
+            <div class="form-group">
+              <label for="from_account">From</label>
+              <select name="from_account" id="from_account">
+                <?php
+                $accounts = $user->getAccounts();
+                foreach ($accounts as $a){
+                  printf('                <option value="%u">%s (%s)</option>'."\n", $a->getId(), $a->getNickname(), $a->getSymbol());
+                }
+                ?>
+              </select>
+              <label for="from_amount">Amount</label>
+              <input type="text" name="from_amount" id="from_amount">
+            </div>
+            <div class="form-group">
+              <label for="to_account">To</label>
+              <select name="to_account" id="to_account">
+                <?php
+                $accounts = $user->getAccounts();
+                foreach ($accounts as $a){
+                  printf('                <option value="%u">%s (%s)</option>'."\n", $a->getId(), $a->getNickname(), $a->getSymbol());
+                }
+                ?>
+              </select>
+              <label for="to_amount">Amount</label>
+              <input type="text" name="to_amount" id="to_amount">
+            </div>
+            <div class="form-group">
+              <label for="timestamp">Date</label>
+              <input name="timestamp" id="timestamp" data-provide="datepicker">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
