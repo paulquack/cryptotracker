@@ -85,7 +85,11 @@ $user = new CryptoUser('quackau');
               <input type="text" name="to_amount" id="to_amount">
             </div>
               <label for="timestamp">Date</label><br>
+<<<<<<< HEAD
               <div class="input-group date" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-date-today-btn="true">
+=======
+              <div class="input-group date" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-today-btn="true">
+>>>>>>> 5cccd9aebd4df87759757dfa07eb1332098320df
                 <input type="text" id="timestamp" name="timestamp" class="form-control">
                 <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>
