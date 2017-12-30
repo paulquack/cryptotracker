@@ -12,7 +12,6 @@ if (isset($_POST) and empty(array_diff(array('from_account','from_amount','to_ac
   $to_amount=floatval($_POST['to_amount']);
   $timestamp=$_POST['timestamp'];
   $notes=$_POST['notes'];
-  var_dump(array($from_account,$from_amount,$to_account,$to_amount,$timestamp));
   $result = $user->addTransaction($from_account,$from_amount,$to_account,$to_amount,$timestamp,$notes);
   if ($result) {
     echo '<div class="alert alert-success alert-dismissable">
