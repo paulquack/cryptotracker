@@ -34,16 +34,17 @@ class CryptoUser {
         return $result;
     }
 
-    public function addTransaction($from_account,$from_amount,$to_account,$to_amount,$timestamp = false){
+    public function addTransaction($from_account,$from_amount,$to_account,$to_amount,$timestamp = false,$notes = ''){
         $result = false;
         if (!$timestamp) $timestamp = date('Y-m-d H:i:s');
         if (array_key_exists($from_account, $this->accounts) and array_key_exists($to_account, $this->accounts)){
             $from_symbol = $this->accounts[$from_account]->getSymbol();
             $to_symbol = $this->accounts[$to_account]->getSymbol();
 
-            mysql_query(sprintf("INSERT INTO `transactions`(`from_account`,`from_symbol`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`timestamp`) VALUES (%u,'%s',%d,%u,'%s',%d,'%s')",
+            mysql_query(sprintf("INSERT INTO `transactions`(`from_account`,`from_symbol`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`timestamp`,`notes`) VALUES (%u,'%s',%d,%u,'%s',%d,'%s','%s')",
                                 intval($from_account),mysql_real_escape_string($from_symbol),floatval($from_amount),
-                                intval($to_account),mysql_real_escape_string($to_symbol),floatval($to_amount),$timestamp));
+                                intval($to_account),mysql_real_escape_string($to_symbol),floatval($to_amount),
+                                $timestamp,mysql_real_escape_string($notes)));
             if (mysql_affected_rows()==1) $result = true;
             echo mysql_error();
         }
@@ -81,15 +82,17 @@ class CryptoAccount {
     public function populateTransactions(){
         $this->balance = 0;
         $this->transactions = array();
-        $debits = mysql_query(sprintf("SELECT `id`,`timestamp`,`from_amount`,`to_account`,`to_symbol`,`to_amount` FROM `transactions` WHERE `from_account`=%u", $this->id));
+        $debits = mysql_query(sprintf("SELECT `id`,`timestamp`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`notes` FROM `transactions` WHERE `from_account`=%u", $this->id));
         while ($row = mysql_fetch_assoc($debits)){
             $description = sprintf("%d %s to \"%s\"", $row['to_amount'], $this->getSymbol($row['to_account']), $this->getNickname($row['to_account']));
+            if (!empty($row['notes'])) $description.=" - {$row['notes']}";
             $this->transactions[strtotime($row['timestamp'])] = new CryptoTransaction($row['id'], $row['timestamp'], -$row['from_amount'], $description);
             $this->balance -= $row['from_amount'];
         }
-        $credits = mysql_query(sprintf("SELECT `id`,`timestamp`,`to_amount`,`from_account`,`from_symbol`,`from_amount` FROM `transactions` WHERE `to_account`=%u", $this->id));
+        $credits = mysql_query(sprintf("SELECT `id`,`timestamp`,`to_amount`,`from_account`,`from_symbol`,`from_amount`,`notes` FROM `transactions` WHERE `to_account`=%u", $this->id));
         while ($row = mysql_fetch_assoc($credits)){
             $description = sprintf("%d %s from \"%s\"", $row['from_amount'], $this->getSymbol($row['from_account']), $this->getNickname($row['from_account']));
+            if (!empty($row['notes'])) $description.=" - {$row['notes']}";
             $this->transactions[strtotime($row['timestamp'])] = new CryptoTransaction($row['id'], $row['timestamp'], $row['to_amount'], $description);
             $this->balance += $row['to_amount'];
         }
