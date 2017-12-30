@@ -55,49 +55,51 @@ $user = new CryptoUser('quackau');
 
     <div class="container">
       <h2>Add Transaction</h2>
-      <form action="addTransaction.php" method="post">
-        <div class="form-row">
-          <div class="col-md-6">
-            <label for="from_account">From</label>
-            <select class="form-control" name="from_account" id="from_account">
+      <form class="form-inline" action="addTransaction.php" method="post">
+      <h3>From</h3>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">Account</div>
+          <select class="form-control" name="from_account" id="from_account" aria-label="From Account" aria-describedby="from_account_addon">
               <?php
               $accounts = $user->getAccounts();
               foreach ($accounts as $a){
                 printf('                <option value="%u">%s (%s)</option>'."\n", $a->getId(), $a->getNickname(), $a->getSymbol());
               }
               ?>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label for="from_amount">Amount</label>
-            <input class="form-control" type="text" name="from_amount" id="from_amount">
-          </div>
+          </select>
         </div>
-        <div class="form-row">
-          <div class="col-md-6">
-            <label for="to_account">To</label><br>
-            <select class="form-control" name="to_account" id="to_account">
+        <div class="input-group">
+          <div class="input-group-addon">Amount</div>
+          <input class="form-control" type="text" name="from_amount" id="from_amount">
+        </div>
+      </div>
+      <h3>To</h3>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">Account</div>
+          <select class="form-control" name="to_account" id="to_account">
               <?php
               $accounts = $user->getAccounts();
               foreach ($accounts as $a){
                 printf('                <option value="%u">%s (%s)</option>'."\n", $a->getId(), $a->getNickname(), $a->getSymbol());
               }
               ?>
-            </select><br>
-          </div>
-          <div class="col-md-6">
-            <label for="to_amount">Amount</label><br>
-            <input class="form-control" type="text" name="to_amount" id="to_amount">
-          </div>
+          </select>
         </div>
-        <div class="form-row">
-          <div class="col-md-6">
-            <label for="datepicker">Date</label><br>
+        <div class="input-group">
+          <div class="input-group-addon">Amount</div>
+          <input class="form-control" type="text" name="to_amount" id="to_amount">
+        </div>
+      </div>
+      <h3>Date</h3>
+      <div class="form-group">
+        <div class="input-group">
             <div id="datepicker" data-date="0"></div>
             <input type="hidden" id="timestamp" name="timestamp">
-          </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
