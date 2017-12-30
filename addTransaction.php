@@ -57,7 +57,7 @@ $user = new CryptoUser('quackau');
       <h2>Add Transaction</h2>
       <form action="addTransaction.php" method="post">
         <div class="form-row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label for="from_account">From</label>
             <select class="form-control" name="from_account" id="from_account">
               <?php
@@ -68,13 +68,13 @@ $user = new CryptoUser('quackau');
               ?>
             </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label for="from_amount">Amount</label>
             <input class="form-control" type="text" name="from_amount" id="from_amount">
           </div>
         </div>
         <div class="form-row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label for="to_account">To</label><br>
             <select class="form-control" name="to_account" id="to_account">
               <?php
@@ -85,13 +85,13 @@ $user = new CryptoUser('quackau');
               ?>
             </select><br>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label for="to_amount">Amount</label><br>
             <input class="form-control" type="text" name="to_amount" id="to_amount">
           </div>
         </div>
         <div class="form-row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label for="datepicker">Date</label><br>
             <div id="datepicker" data-date="0"></div>
             <input type="hidden" id="timestamp" name="timestamp">
