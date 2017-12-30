@@ -33,6 +33,9 @@ class CryptoUser {
         $result = false;
         if (!$timestamp) $timestamp = time();
         if (array_key_exists($from_account, $this->accounts) and array_key_exists($to_account, $this->accounts)){
+            $from_symbol = $this->accounts[$from_account]->getSymbol();
+            $to_symbol = $this->accounts[$to_account]->getSymbol();
+
             mysql_query(sprintf("INSERT INTO `transactions`(`from_account`,`from_symbol`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`timestamp`) VALUES (%u,'%s',%d,%u,'%s',%d)",
                                 intval($from_account),mysql_real_escape_string($from_symbol),floatval($from_amount),
                                 intval($to_account),mysql_real_escape_string($to_symbol),floatval($to_amount)));

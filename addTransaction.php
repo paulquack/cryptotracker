@@ -58,7 +58,7 @@ if (isset($_POST)){
   $to_amount=floatval($_POST['to_amount']);
   $timestamp=$_POST['timestamp'];
   var_dump(array($from_account,$from_amount,$to_account,$to_amount,$timestamp));
-  $result = $user->addTransaction($from_account,$from_symbol,$from_amount,$to_account,$to_symbol,$to_amount,$timestamp);
+  $result = $user->addTransaction($from_account,$from_amount,$to_account,$to_amount,$timestamp);
   if ($result) {
     echo '<div class="alert alert-success alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
