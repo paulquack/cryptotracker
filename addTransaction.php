@@ -54,45 +54,51 @@ $user = new CryptoUser('quackau');
 ?>
 
     <div class="container">
-          <h2>Add Transaction</h2>
-          <form action="addTransaction.php" method="post">
-            <div class="form-row">
-              <div class="col-md-4">
-                <label for="from_account">From</label>
-                <select class="form-control" name="from_account" id="from_account">
-                <?php
-                $accounts = $user->getAccounts();
-                foreach ($accounts as $a){
-                  printf('                <option value="%u">%s (%s)</option>'."\n", $a->getId(), $a->getNickname(), $a->getSymbol());
-                }
-                ?>
-              </select>
-            </div>
-            <div class="col-md-4">
-
-              <label for="from_amount">Amount</label>
-              <input class="form-control" type="text" name="from_amount" id="from_amount">
-            </div>
-            <div class="form-group">
-              <label for="to_account">To</label><br>
-              <select name="to_account" id="to_account">
-                <?php
-                $accounts = $user->getAccounts();
-                foreach ($accounts as $a){
-                  printf('                <option value="%u">%s (%s)</option>'."\n", $a->getId(), $a->getNickname(), $a->getSymbol());
-                }
-                ?>
-              </select><br>
-              <label for="to_amount">Amount</label><br>
-              <input type="text" name="to_amount" id="to_amount">
-            </div>
-            <div class="form-group">
-              <label for="datepicker">Date</label><br>
-              <div id="datepicker" data-date="0"></div>
-              <input type="hidden" id="timestamp" name="timestamp">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+      <h2>Add Transaction</h2>
+      <form action="addTransaction.php" method="post">
+        <div class="form-row">
+          <div class="col-md-4">
+            <label for="from_account">From</label>
+            <select class="form-control" name="from_account" id="from_account">
+              <?php
+              $accounts = $user->getAccounts();
+              foreach ($accounts as $a){
+                printf('                <option value="%u">%s (%s)</option>'."\n", $a->getId(), $a->getNickname(), $a->getSymbol());
+              }
+              ?>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="from_amount">Amount</label>
+            <input class="form-control" type="text" name="from_amount" id="from_amount">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-4">
+            <label for="to_account">To</label><br>
+            <select class="form-control" name="to_account" id="to_account">
+              <?php
+              $accounts = $user->getAccounts();
+              foreach ($accounts as $a){
+                printf('                <option value="%u">%s (%s)</option>'."\n", $a->getId(), $a->getNickname(), $a->getSymbol());
+              }
+              ?>
+            </select><br>
+          </div>
+          <div class="col-md-4">
+            <label for="to_amount">Amount</label><br>
+            <input class="form-control" type="text" name="to_amount" id="to_amount">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-4">
+            <label for="datepicker">Date</label><br>
+            <div id="datepicker" data-date="0"></div>
+            <input type="hidden" id="timestamp" name="timestamp">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
