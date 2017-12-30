@@ -84,10 +84,13 @@ $user = new CryptoUser('quackau');
               <label for="to_amount">Amount</label><br>
               <input type="text" name="to_amount" id="to_amount">
             </div>
-            <div class="form-group" id="datepicker">
               <label for="timestamp">Date</label><br>
-              <div></div>
-              <input data-provide="datepicker-inline">
+              <div class="input-group date" data-provide="datepicker">
+                <input type="text" id="timestamp" name="timestamp" class="form-control">
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-th"></span>
+                </div>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
@@ -99,11 +102,5 @@ $user = new CryptoUser('quackau');
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/vendor/bootstrap-datepicker.min.js"></script>
         <script src="js/main.js"></script>
-        <script>
-        $('#datepicker div').datepicker({
-          todayBtn: "linked",
-          todayHighlight: true
-        });
-        </script>
     </body>
 </html>
