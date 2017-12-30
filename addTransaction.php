@@ -50,7 +50,28 @@ include('inc/mysql.php');
 include('inc/classes.php');
 $username='quackau';
 $user = new CryptoUser('quackau');
-//    public function addTransaction($from_account,$from_symbol,$from_amount,$to_account,$to_symbol,$to_amount,$timestamp = false)
+
+if (isset($_POST)){
+  $from_account=intval($_POST['from_account']);
+  $from_symbol=CryptoAccount::getSymbol($from_account);
+  $from_amount=floatval($_POST['from_amount']);
+  $to_account=intval($_POST['to_account']);
+  $to_symbol=CryptoAccount::getSymbol($to_account);
+  $to_amount=floatval($_POST['to_amount']);
+  $timestamp=$_POST['timestamp'];
+  $result = $user->addTransaction($from_account,$from_symbol,$from_amount,$to_account,$to_symbol,$to_amount,$timestamp);
+  if ($result) {
+    echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Success!</strong> Transaction inserted into database.
+</div>';
+  } else {
+    echo '<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Failed!</strong> Transaction not inserted into database.
+</div>';
+  }
+}
 ?>
 
     <div class="container">
@@ -95,10 +116,10 @@ $user = new CryptoUser('quackau');
       <h3>Date</h3>
       <div class="form-group">
         <div class="input-group">
-            <div id="datepicker" data-date="0"></div>
+            <div id="datepicker" data-date="0" data-date-format="yyyy-mm-dd"></div>
             <input type="hidden" id="timestamp" name="timestamp" required>
         </div>
-      </div>
+      </div><br>
       <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>

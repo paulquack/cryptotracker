@@ -30,14 +30,18 @@ class CryptoUser {
     }
 
     public function addTransaction($from_account,$from_symbol,$from_amount,$to_account,$to_symbol,$to_amount,$timestamp = false){
+        $result = false;
         if (!$timestamp) $timestamp = time();
         if (array_key_exists($from_account, $this->accounts) and array_key_exists($to_account, $this->accounts) and
-            $this->accounts[$from_account]->getSymbol() == $from_symbol and $this->accounts[$to_accounts]->getSymbol() == $to_symbol)
+            $this->accounts[$from_account]->getSymbol() == $from_symbol and $this->accounts[$to_accounts]->getSymbol() == $to_symbol){
             mysql_query(sprintf("INSERT INTO `transactions`(`from_account`,`from_symbol`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`timestamp`) VALUES (%u,'%s',%d,%u,'%s',%d)",
                                 intval($from_account),mysql_real_escape_string($from_symbol),floatval($from_amount),
                                 intval($to_account),mysql_real_escape_string($to_symbol),floatval($to_amount)));
+            if (mysql_affected_rows()==1) $result = true;
+        }
         $this->accounts[$from_account]->populateTransactions();
         $this->accounts[$to_account]->populateTransactions();
+        return $result;
     }
 
     public function getId(){
