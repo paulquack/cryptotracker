@@ -71,7 +71,7 @@ $user = new CryptoUser('quackau');
         </div>
         <div class="input-group">
           <div class="input-group-addon">Amount</div>
-          <input class="form-control" type="text" name="from_amount" id="from_amount">
+          <input class="form-control" type="text" name="from_amount" id="from_amount" required pattern="[0-9]+\.?[0-9]*">
         </div>
       </div>
       <h3>To</h3>
@@ -89,14 +89,14 @@ $user = new CryptoUser('quackau');
         </div>
         <div class="input-group">
           <div class="input-group-addon">Amount</div>
-          <input class="form-control" type="text" name="to_amount" id="to_amount">
+          <input class="form-control" type="text" name="to_amount" id="to_amount" required pattern="[0-9]+\.?[0-9]*">
         </div>
       </div>
       <h3>Date</h3>
       <div class="form-group">
         <div class="input-group">
             <div id="datepicker" data-date="0"></div>
-            <input type="hidden" id="timestamp" name="timestamp">
+            <input type="hidden" id="timestamp" name="timestamp" required>
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
