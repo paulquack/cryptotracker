@@ -82,21 +82,24 @@ class CryptoAccount {
     public function populateTransactions(){
         $this->balance = 0;
         $this->transactions = array();
-        $debits = mysql_query(sprintf("SELECT `id`,`timestamp`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`notes` FROM `transactions` WHERE `from_account`=%u", $this->id));
+        $debits = mysql_query(sprintf("SELECT `id`,`timestamp`,`from_amount`,`to_account`,`to_symbol`,`to_amount`,`notes` FROM `transactions` WHERE `from_account`=%u ORDER BY `timestamp` ASC", $this->id));
         while ($row = mysql_fetch_assoc($debits)){
             $description = sprintf("%f %s to \"%s\"", $row['to_amount'], $this->getSymbol($row['to_account']), $this->getNickname($row['to_account']));
             if (!empty($row['notes'])) $description.=" - {$row['notes']}";
-            $this->transactions[strtotime($row['timestamp'])] = new CryptoTransaction($row['id'], $row['timestamp'], -$row['from_amount'], $description);
+            $this->transactions[] = new CryptoTransaction($row['id'], $row['timestamp'], -$row['from_amount'], $description);
             $this->balance -= $row['from_amount'];
         }
-        $credits = mysql_query(sprintf("SELECT `id`,`timestamp`,`to_amount`,`from_account`,`from_symbol`,`from_amount`,`notes` FROM `transactions` WHERE `to_account`=%u", $this->id));
+        $credits = mysql_query(sprintf("SELECT `id`,`timestamp`,`to_amount`,`from_account`,`from_symbol`,`from_amount`,`notes` FROM `transactions` WHERE `to_account`=%u ORDER BY `timestamp` ASC", $this->id));
         while ($row = mysql_fetch_assoc($credits)){
             $description = sprintf("%f %s from \"%s\"", $row['from_amount'], $this->getSymbol($row['from_account']), $this->getNickname($row['from_account']));
             if (!empty($row['notes'])) $description.=" - {$row['notes']}";
-            $this->transactions[strtotime($row['timestamp'])] = new CryptoTransaction($row['id'], $row['timestamp'], $row['to_amount'], $description);
+            $this->transactions[] = new CryptoTransaction($row['id'], $row['timestamp'], $row['to_amount'], $description);
             $this->balance += $row['to_amount'];
         }
-        ksort($this->transactions);
+        usort($this->transactions, function($a, $b)
+        {
+            return strcmp($a->name, $b->name);
+        });
     }
 
     public function getNickname($id = false){
@@ -120,12 +123,22 @@ class CryptoAccount {
     }
 
     public function getBalance($atTime = false){
+        $balance = 0;
         if (!$atTime) return $this->balance;
-        if (is_int($at_time)){
-            foreach ($this->transactions as $t){
-                if ($t->timestamp > $atTime) return $balance;
-                $balance += $t->amount;
-            }
+        foreach ($this->transactions as $t){
+            if (strcmp($t->timestamp,$atTime) > 0) return $balance;
+            $balance += $t->amount;
+        }
+        return $balance;
+    }
+
+    public function getDailyBalance($start, $end){
+        $statement = $this->getStatement();
+        $i = 0;
+        $startStamp = floor($start/86400)*86400;
+        $endStamp = floor($start/86400)*86400;
+        for ($curStamp = $startStamp; $curStamp <= $endStamp; $curStamp += 86400){
+            while ($statement[$i]->timestamp <= $curStamp)
         }
     }
 
@@ -144,7 +157,7 @@ class CryptoAccount {
                 'description'=>$t->desciption,
                 'balance'=>$balance);
         }
-        return $balance;
+        return $result;
     }
 }
 
