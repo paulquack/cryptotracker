@@ -139,7 +139,7 @@ class CryptoAccount {
         $endDay = floor(strtotime($start)/86400);
         $result=array();
         for ($curDay = $startDay; $curDay <= $endDay; $curDay++){
-            while (floor(strtotime($statement[$i]->timestamp)/86400) <= $curDay) $i++;
+            while ($i < count($statement) and floor(strtotime($statement[$i]->timestamp)/86400) <= $curDay) $i++;
             $result[date('Y-m-d',$curDay*86400)] = (($i>0) ? $statement[$i-1]->balance : 0);
         }
     }
