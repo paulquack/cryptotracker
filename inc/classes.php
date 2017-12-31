@@ -135,10 +135,12 @@ class CryptoAccount {
     public function getDailyBalance($start, $end){
         $statement = $this->getStatement();
         $i = 0;
-        $startStamp = floor($start/86400)*86400;
-        $endStamp = floor($start/86400)*86400;
-        for ($curStamp = $startStamp; $curStamp <= $endStamp; $curStamp += 86400){
-            while ($statement[$i]->timestamp <= $curStamp)
+        $startDay = floor(strtotime($start)/86400);
+        $endDay = floor(strtotime($start)/86400);
+        $result=array();
+        for ($curDay = $startDay; $curDay <= $endDay; $curDay++){
+            while (floor(strtotime($statement[$i]->timestamp)/86400) <= $curDay) $i++;
+            $result[date('Y-m-d',$curDay*86400)] = (($i>0) ? $statement[$i-1]->balance : 0);
         }
     }
 
