@@ -15,7 +15,7 @@ if (isset($_GET) and empty(array_diff(array('startdate','enddate'),$_GET))){
     $end = date('Y-m-d');
     $start = date(strtotime("$end - 1 month"));
 }
-die();
+
 if (isset($_GET) and array_key_exists("groupbysymbol",$_GET) and $_GET['groupbysymbol']==true) {
     $groupbysymbol = true;
 } else {
