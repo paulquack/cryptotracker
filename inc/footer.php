@@ -5,14 +5,7 @@
     <script src="js/vendor/bootstrap-datepicker.min.js"></script>
     <script src="js/main.js"></script>
     <script>
-    $('#datepicker').datepicker({
-      format: "yyyy-mm-dd"
-    });
-    $('#datepicker').on('changeDate', function() {
-        $('#timestamp').val(
-            $('#datepicker').datepicker('getFormattedDate')
-        );
-    });
+    <? if (isset($footer_script)) echo $footer_script; ?>
     </script>
 </body>
 </html>

@@ -23,12 +23,9 @@ $accounts = $user->getAccounts();
         </div>
     </div>
 </form>
-<script>
-$('#selectaccount').change(function() {
-  $('#accountform').submit();
-});
-</script>
 <?php
+$footer_script = "$('#selectaccount').change(function() {\n  $('#accountform').submit();\n});";
+
 if (isset($_GET) and array_key_exists('account',$_GET) and array_key_exists($_GET['account'],$accounts)) {
     $statement = $account->getStatement();
     echo "<table class=\"table\">

@@ -84,4 +84,12 @@ if (isset($_POST) and empty(array_diff(array('from_account','from_amount','to_ac
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-<?php include('inc/footer.php'); ?>
+<?php
+$footer_script="$('#datepicker').datepicker({
+  format: \"yyyy-mm-dd\"
+});
+$('#datepicker').on('changeDate', function() {
+    $('#timestamp').val( $('#datepicker').datepicker('getFormattedDate') );
+});";
+
+include('inc/footer.php'); ?>
