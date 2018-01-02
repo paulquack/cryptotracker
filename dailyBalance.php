@@ -9,9 +9,7 @@ date_default_timezone_set('UTC');
 if (isset($_GET) and empty(array_diff(array('startdate','enddate'),$_GET))){
     $end = date('Y-m-d',strtotime($_GET['enddate']));
     $start = date('Y-m-d',strtotime($_GET['startdate']));
-    echo "1\n";
 } else {
-    echo "2\n";
     $end = date('Y-m-d');
     $start = date('Y-m-d',strtotime("-1 month"));
 }
@@ -24,15 +22,13 @@ if (isset($_GET) and array_key_exists("groupbysymbol",$_GET) and $_GET['groupbys
 
 foreach ($accounts as $a){
     $bal = $a->getDailyBalance($start,$end);
-    echo count($bal)."\n";
-    
     foreach ($bal as $date => $balance){
-        //addDataPoint($a, $date, $balance);
+        addDataPoint($a, $date, $balance);
     }
 }
-//header('Content-type: text/csv');
-//header('Content-disposition: attachment;filename=cryptoTracker_Balance.csv');
-echo "$start\n$end\n";
+header('Cache-Control: max-age=300');
+header('Content-type: text/csv');
+header('Content-disposition: attachment;filename=cryptoTracker_Balance.csv');
 $f = fopen('php://output', 'w');
 fputcsv($f, array_keys($balances[$start]));
 foreach ($balances as $row) fputcsv($f, $row);
