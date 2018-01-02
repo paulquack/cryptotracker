@@ -141,7 +141,7 @@ class CryptoAccount {
         for ($curDay = $startDay; $curDay <= $endDay; $curDay++){
 
             while ($i < count($statement) and floor(strtotime($statement[$i]['timestamp'])/86400) <= $curDay){
-                echo "Skipping transaction $i\n"
+                echo "Skipping transaction $i\n";
                 $i++;
             }
             echo "Using transaction " . ($i-1) . " Date: " . floor(strtotime($statement[$i-1]['timestamp'])/86400) . " <= $curDay\n";
