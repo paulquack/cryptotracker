@@ -19,7 +19,6 @@ if (isset($_GET) and array_key_exists("groupbysymbol",$_GET) and $_GET['groupbys
     $groupbysymbol = false;
 }
 
-$header = array('Date');
 foreach ($accounts as $a){
     foreach ($a->getDailyBalance($start,$end) as $date => $balance){
         addDataPoint($a, $date, $balance);
@@ -28,20 +27,20 @@ foreach ($accounts as $a){
 header('Content-type: text/csv');
 header('Content-disposition: attachment;filename=cryptoTracker_Balance.csv');
 $f = fopen('php://output', 'w');
-fputcsv($f, array_merge($header, array_keys($balances[$start])));
+fputcsv($f, array_keys($balances[$start]));
 foreach ($balances as $row) fputcsv($f, $row);
 fclose($f);
 
 function addDataPoint($account, $date, $balance){
     global $groupbysymbol, $balances;
-    if (!array_key_exists($date, $balances)) $balances[$date] = array();
+    if (!array_key_exists($date, $balances)) $balances[$date] = array('Date'=>$date);
     if ($groupbysymbol){
         $key = $account->getSymbol();
-        if (!array_key_exists($key, $balances['date'])) $balances['date'][$key] = 0;
-        $balances['date'][$key] += $balance;
+        if (!array_key_exists($key, $balances[$date])) $balances[$date][$key] = 0;
+        $balances[$date][$key] += $balance;
     } else {
         $key = sprintf("%s (%s)", $account->getNickname(), $account->getSymbol());
-        $balances['date'][$key] = $balance;
+        $balances[$date][$key] = $balance;
     }
 }
 
