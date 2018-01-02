@@ -134,6 +134,7 @@ class CryptoAccount {
 
     public function getDailyBalance($start, $end){
         $statement = $this->getStatement();
+        var_export($this->transactions);
         var_export($statement);
         $i = 0;
         $startDay = floor(strtotime($start)/86400);
