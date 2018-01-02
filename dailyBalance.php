@@ -6,6 +6,7 @@ $username='quackau';
 $user = new CryptoUser('quackau');
 $accounts = $user->getAccounts();
 
+
 foreach ($accounts as $a){
     echo "<h2>{$a->getNickname()}</h2>\n<pre>\n";
     var_export($a->getDailyBalance('2017-12-01','2017-12-31'));
