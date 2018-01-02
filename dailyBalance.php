@@ -23,7 +23,9 @@ if (isset($_GET) and array_key_exists("groupbysymbol",$_GET) and $_GET['groupbys
 }
 
 foreach ($accounts as $a){
-    foreach ($a->getDailyBalance($start,$end) as $date => $balance){
+    $bal = $a->getDailyBalance($start,$end)
+    echo count($bal)."\n";
+    foreach ($bal as $date => $balance){
         addDataPoint($a, $date, $balance);
     }
 }
