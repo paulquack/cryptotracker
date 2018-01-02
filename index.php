@@ -5,11 +5,11 @@ include('inc/header.php');
 $username='quackau';
 $user = new CryptoUser('quackau');
 echo "<table class=\"table\">
-    <tr><th>Account</th><th>Balance</th></tr>\n";
+    <tr><th>Account</th><th class="text-right">Balance</th></tr>\n";
 foreach($user->getAccounts() as $account){
-    printf("    <tr><td>%s (%s)</td><td>%s</td></tr>\n",
+    printf("    <tr><td>%s (%s)</td><td class="text-right">%s</td></tr>\n",
            $account->getNickname(), $account->getSymbol(),
-           number_format($account->getBalance(),8));
+           preg_replace('/(\.?0+)$/', '<span class="text-muted">$1</spam>', number_format($account->getBalance(),8)));
 }
 echo "</table>\n";
 include('inc/footer.php')

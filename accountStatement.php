@@ -36,10 +36,11 @@ if ($curAccount) {
     $statement = $curAccount->getStatement();
     printf("<h1>Statement for %s (%s)</h1>\n",$curAccount->getNickname(),$curAccount->getSymbol());
     echo "<table class=\"table\">
-        <tr><th>Date</th><th>Description</th><th>Amount</th><th>Balance</th></tr>\n";
+        <tr><th>Date</th><th>Description</th><th class="text-right">Amount</th><th class="text-right">Balance</th></tr>\n";
     foreach($statement as $t){
-        printf("    <tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>\n", $t['timestamp'], $t['description'],
-               number_format($t['amount'],8), number_format($t['balance'],8));
+        printf("    <tr><td>%s</td><td>%s</td><td class="text-right">%s</td><td class="text-right">%s</td></tr>\n", $t['timestamp'], $t['description'],
+               preg_replace('/(\.?0+)$/', '<span class="text-muted">$1</spam>', number_format($t['amount'],8)),
+               preg_replace('/(\.?0+)$/', '<span class="text-muted">$1</spam>', number_format($t['balance'],8)));
     }
     echo "</table>\n";
 }
