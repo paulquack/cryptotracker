@@ -36,11 +36,11 @@ function addDataPoint($account, $date, $balance){
     global $groupbysymbol, $balances;
     if (!array_key_exists($date, $balances)) $balances[$date] = array();
     if ($groupbysymbol){
-        $key = $a->getSymbol();
+        $key = $account->getSymbol();
         if (!array_key_exists($key, $balances['date'])) $balances['date'][$key] = 0;
         $balances['date'][$key] += $balance;
     } else {
-        $key = sprintf("%s (%s)", $a->getNickname(), $a->getSymbol());
+        $key = sprintf("%s (%s)", $account->getNickname(), $account->getSymbol());
         $balances['date'][$key] = $balance;
     }
 }
