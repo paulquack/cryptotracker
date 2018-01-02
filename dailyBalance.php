@@ -9,9 +9,9 @@ date_default_timezone_set('UTC');
 if (isset($_GET) and empty(array_diff(array('startdate','enddate'),$_GET))){
     $end = date('Y-m-d',strtotime($_GET['enddate']));
     $start = date('Y-m-d',strtotime($_GET['startdate']));
-    echo "1";
+    echo "1\n";
 } else {
-    echo "2";
+    echo "2\n";
     $end = date('Y-m-d');
     $start = date(strtotime("$end - 1 month"));
 }
@@ -26,8 +26,8 @@ foreach ($accounts as $a){
         addDataPoint($a, $date, $balance);
     }
 }
-header('Content-type: text/csv');
-header('Content-disposition: attachment;filename=cryptoTracker_Balance.csv');
+//header('Content-type: text/csv');
+//header('Content-disposition: attachment;filename=cryptoTracker_Balance.csv');
 echo "$start\n$end\n";
 $f = fopen('php://output', 'w');
 fputcsv($f, array_keys($balances[$start]));
