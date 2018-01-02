@@ -136,16 +136,18 @@ class CryptoAccount {
         $statement = $this->getStatement();
         $i = 0;
         $startDay = floor(strtotime($start)/86400);
-        $endDay = floor(strtotime($start)/86400);
+        $endDay = floor(strtotime($end)/86400);
         $result=array();
         for ($curDay = $startDay; $curDay <= $endDay; $curDay++){
 
-            while ($i < count($statement) and floor(strtotime($statement[$i]->timestamp)/86400) <= $curDay){
-                echo "$i <= $curDay\n";
+            while ($i < count($statement) and floor(strtotime($statement[$i]['timestamp'])/86400) <= $curDay){
+                echo "Skipping transaction $i\n"
                 $i++;
             }
-            $result[date('Y-m-d',$curDay*86400)] = (($i>0) ? $statement[$i-1]->balance : 0);
+            echo "Using transaction " . ($i-1) . " Date: " . floor(strtotime($statement[$i-1]['timestamp'])/86400) . " <= $curDay\n";
+            $result[date('Y-m-d',$curDay*86400)] = (($i>0) ? round($statement[$i-1]['balance'],8) : 0);
         }
+        return $result;
     }
 
     public function getId(){
