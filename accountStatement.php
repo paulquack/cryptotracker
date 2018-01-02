@@ -17,7 +17,7 @@ if (isset($_GET) and array_key_exists('account',$_GET) and array_key_exists($_GE
     <h3>Select account</h3>
     <div class="form-group">
         <div class="input-group">
-            <div class="input-group-addon">Account</div>
+            <div class="input-group-addon">Account <?php echo $curAccount->getId(); ?></div>
             <select class="form-control" name="account" id="selectaccount" aria-label="Account" aria-describedby="account_addon">
                 <?php
                 foreach ($accounts as $a){
