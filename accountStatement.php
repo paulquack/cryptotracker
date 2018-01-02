@@ -6,6 +6,11 @@ $username='quackau';
 $user = new CryptoUser('quackau');
 $accounts = $user->getAccounts();
 
+if (isset($_GET) and array_key_exists('account',$_GET) and array_key_exists($_GET['account'],$accounts)) {
+    $curAccount = $accounts[$_GET['account']];
+} else {
+    $curAccount = false;
+}
 ?>
 <form class="form-inline" action="accountStatement.php" method="get" id="accountform">
 
@@ -16,7 +21,8 @@ $accounts = $user->getAccounts();
             <select class="form-control" name="account" id="selectaccount" aria-label="Account" aria-describedby="account_addon">
                 <?php
                 foreach ($accounts as $a){
-                    printf('                <option value="%u">%s (%s)</option>'."\n", $a->getId(), $a->getNickname(), $a->getSymbol());
+                    printf('                <option value="%u"%s>%s (%s)</option>'."\n", $a->getId(),
+                           ($account)?" selected":"", $a->getNickname(), $a->getSymbol());
                 }
                 ?>
             </select>
@@ -26,8 +32,9 @@ $accounts = $user->getAccounts();
 <?php
 $footer_script = "$('#selectaccount').change(function() {\n  $('#accountform').submit();\n});";
 
-if (isset($_GET) and array_key_exists('account',$_GET) and array_key_exists($_GET['account'],$accounts)) {
-    $statement = $account->getStatement();
+if ($curAccount) {
+    $statement = $curAccount->getStatement();
+    printf("<h1>Statement for %s (%s)</h1>\n",$curAccount->getNickname(),$curAccount->getSymbol());
     echo "<table class=\"table\">
         <tr><th>Date</th><th>Description</th><th>Amount</th><th>Balance</th></tr>\n";
     foreach($statement as $t){
