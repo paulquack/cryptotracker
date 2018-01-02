@@ -4,13 +4,13 @@ include('inc/classes.php');
 $username='quackau';
 $user = new CryptoUser('quackau');
 $accounts = $user->getAccounts();
-
+date_default_timezone_set('UTC');
 
 if (isset($_GET) and empty(array_diff(array('startdate','enddate')))){
     $end = date('Y-m-d',strtotime($_GET['startdate']));
     $start = date('Y-m-d',strtotime($_GET['startdate']));
 } else {
-    $end = date('Y-m-d')
+    $end = date('Y-m-d');
     $start = date(strtotime("$end - 1 month"));
 }
 if (isset($_GET) and array_key_exists("groupbysymbol",$_GET) and $_GET['groupbysymbol']==true) {
