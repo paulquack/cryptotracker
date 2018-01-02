@@ -22,7 +22,7 @@ if (isset($_GET) and array_key_exists('account',$_GET) and array_key_exists($_GE
                 <?php
                 foreach ($accounts as $a){
                     printf('                <option value="%u"%s>%s (%s)</option>'."\n", $a->getId(),
-                           ($curAccount and $curAccount->getId() == $a->getId())?" selected":"", $a->getNickname(), $a->getSymbol());
+                           ($curAccount and $curAccount->getId() == $a->getId())?' selected="selected"':'', $a->getNickname(), $a->getSymbol());
                 }
                 ?>
             </select>
