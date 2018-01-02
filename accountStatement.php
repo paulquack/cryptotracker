@@ -39,7 +39,7 @@ if ($curAccount) {
         <tr><th>Date</th><th>Description</th><th>Amount</th><th>Balance</th></tr>\n";
     foreach($statement as $t){
         printf("    <tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>\n", $t['timestamp'], $t['description'],
-               rtrim(number_format($t['amount'],8),'0.'), (float)number_format($t['balance'],8)));
+               (float)number_format($t['amount'],8),'0.', (float)number_format($t['balance'],8));
     }
     echo "</table>\n";
 }
