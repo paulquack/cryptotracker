@@ -98,7 +98,7 @@ class CryptoAccount {
         }
         usort($this->transactions, function($a, $b)
         {
-            return strcmp($a->name, $b->name);
+            return strcmp($a->timestamp, $b->timestamp);
         });
     }
 
