@@ -43,8 +43,10 @@
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="navbar-nav nav mr-auto">
                 <li><a href="index.php">Home</a></li>
+                <li><a href="objectExplorer.php">Object Explorer</a></li>
                 <li><a href="addTransaction.php">Add Transaction</a></li>
                 <li><a href="addAccount.php">Add Account</a></li>
+                <li><a href="dailyBalance.php">Daily Balance (CSV)</a></li>
               </ul>
             </div>
           </div>

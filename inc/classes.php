@@ -123,8 +123,8 @@ class CryptoAccount {
     }
 
     public function getBalance($atTime = false){
-        $balance = 0;
         if (!$atTime) return $this->balance;
+        $balance = 0;
         foreach ($this->transactions as $t){
             if (strcmp($t->timestamp,$atTime) > 0) return $balance;
             $balance += $t->amount;
