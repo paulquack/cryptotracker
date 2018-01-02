@@ -40,7 +40,7 @@ function addDataPoint($account, $date, $balance){
         if (!array_key_exists($key, $balances['date'])) $balances['date'][$key] = 0;
         $balances['date'][$key] += $balance;
     } else {
-        $key = sprintf("%s (%s)", $a->getNickname(), $a->getSymbol())
+        $key = sprintf("%s (%s)", $a->getNickname(), $a->getSymbol());
         $balances['date'][$key] = $balance;
     }
 }
