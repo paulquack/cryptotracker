@@ -159,7 +159,7 @@ class CryptoAccount {
             $result[] = array(
                 'timestamp'=>$t->timestamp,
                 'amount'=>$t->amount,
-                'description'=>$t->desciption,
+                'description'=>$t->description,
                 'balance'=>$balance);
         }
         return $result;
