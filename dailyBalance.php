@@ -13,7 +13,7 @@ if (isset($_GET) and empty(array_diff(array('startdate','enddate'),$_GET))){
 } else {
     echo "2\n";
     $end = date('Y-m-d');
-    $start = date(strtotime("$end - 1 month"));
+    $start = date('Y-m-d',strtotime("-1 month"));
 }
 
 if (isset($_GET) and array_key_exists("groupbysymbol",$_GET) and $_GET['groupbysymbol']==true) {
@@ -25,8 +25,9 @@ if (isset($_GET) and array_key_exists("groupbysymbol",$_GET) and $_GET['groupbys
 foreach ($accounts as $a){
     $bal = $a->getDailyBalance($start,$end);
     echo count($bal)."\n";
+    
     foreach ($bal as $date => $balance){
-        addDataPoint($a, $date, $balance);
+        //addDataPoint($a, $date, $balance);
     }
 }
 //header('Content-type: text/csv');
