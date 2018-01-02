@@ -4,7 +4,7 @@ include('inc/classes.php');
 include('inc/header.php');
 $username='quackau';
 $user = new CryptoUser('quackau');
-echo "<table class="table">
+echo "<table class=\"table\">
     <tr><th>Account</th><th>Balance</th></tr>\n";
 foreach($user->getAccounts() as $account){
     printf("    <tr><td>%s (%s)</td><td>%.8f</td></tr>\n",$account->getNickname(),$account->getSymbol(),$account->getBalance());
