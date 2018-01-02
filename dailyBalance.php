@@ -6,10 +6,12 @@ $user = new CryptoUser('quackau');
 $accounts = $user->getAccounts();
 date_default_timezone_set('UTC');
 
-if (isset($_GET) and empty(array_diff(array('startdate','enddate')))){
-    $end = date('Y-m-d',strtotime($_GET['startdate']));
+if (isset($_GET) and empty(array_diff(array('startdate','enddate'),$_GET))){
+    $end = date('Y-m-d',strtotime($_GET['enddate']));
     $start = date('Y-m-d',strtotime($_GET['startdate']));
+    echo "1";
 } else {
+    echo "2";
     $end = date('Y-m-d');
     $start = date(strtotime("$end - 1 month"));
 }
@@ -26,6 +28,7 @@ foreach ($accounts as $a){
 }
 header('Content-type: text/csv');
 header('Content-disposition: attachment;filename=cryptoTracker_Balance.csv');
+echo "$start\n$end\n";
 $f = fopen('php://output', 'w');
 fputcsv($f, array_keys($balances[$start]));
 foreach ($balances as $row) fputcsv($f, $row);
