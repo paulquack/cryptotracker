@@ -46,6 +46,7 @@
                 <li><a href="objectExplorer.php">Object Explorer</a></li>
                 <li><a href="addTransaction.php">Add Transaction</a></li>
                 <li><a href="addAccount.php">Add Account</a></li>
+                <li><a href="accountStatement.php">Account Statement</a></li>
                 <li><a href="dailyBalance.php">Daily Balance (CSV)</a></li>
               </ul>
             </div>
