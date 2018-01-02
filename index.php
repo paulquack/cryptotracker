@@ -9,7 +9,7 @@ echo "<table class=\"table\">
 foreach($user->getAccounts() as $account){
     printf("    <tr><td>%s (%s)</td><td>%s</td></tr>\n",
            $account->getNickname(), $account->getSymbol(),
-           trim(number_format($account->getBalance(),8),'0'));
+           trim(number_format($account->getBalance(),8),'0.'));
 }
 echo "</table>\n";
 include('inc/footer.php')
