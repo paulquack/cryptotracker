@@ -18,7 +18,7 @@ $localcur = "AUD";
 $prices = (array)json_decode(file_get_contents("https://min-api.cryptocompare.com/data/pricemulti?fsyms=$symbols&tsyms=USD,$localcur"));
 $balance_usd = $balance_local = 0;
 
-echo "<table class=\"table\">
+echo "<h1>Account Balances</h1>\n<table class=\"table\">
     <tr><th>Account</th><th class=\"text-right\">Balance</th><th></th><th class=\"text-right\">Price</th><th class=\"text-right\">Value</th><th></th></tr>\n";
 foreach($user->getAccounts() as $account){
     if (count($account->getStatement()) > 0) {
@@ -31,7 +31,7 @@ foreach($user->getAccounts() as $account){
 
         printf("    <tr>\n        <td><a href=\"accountStatement.php?account=%u\">%s</a></td><td class=\"text-right\">%s</td><td>%s</td>\n"
                ."        <td class=\"text-right\">%s<br><small>%s</small></td><td class=\"text-right\">%s<br><small>%s</small></td><td>USD<br><small>%s</small></td>\n    </tr>\n",
-                $account->getId(), $account->getNickname(), formatcurrency($account->getBalance()), $account->getSymbol(), 
+                $account->getId(), $account->getNickname(), formatcurrency($account->getBalance()), $account->getSymbol(),
                 formatcurrency($price_usd,2),formatcurrency($price_local,2),formatcurrency($value_usd,2),formatcurrency($value_local,2),$localcur);
     }
 }
