@@ -12,6 +12,7 @@ function formatcurrency($a){
 foreach($user->getAccounts() as $account){
     $symbols[] = $account->getSymbol();
 }
+
 $symbols = implode(",",array_unique($symbols));
 $localcur = "AUD";
 $prices = (array)json_decode(file_get_contents("https://min-api.cryptocompare.com/data/pricemulti?fsyms=$symbols&tsyms=USD,$localcur"));
@@ -24,8 +25,10 @@ foreach($user->getAccounts() as $account){
         printf("    <tr><td><a href=\"accountStatement.php?account=%u\">%s (%s)</a></td><td class=\"text-right\">%s</td><td class=\"text-right\">%s<br><small>%s</small></td><td class=\"text-right\">%s<br><small>%s</small></td></tr>\n",
                 $account->getId(), $account->getNickname(), $account->getSymbol(),
                 formatcurrency($account->getBalance()),
-                formatcurrency($prices->USD),formatcurrency($prices->$localcur),
-                formatcurrency($account->getBalance() * $prices->USD),formatcurrency($account->getBalance() * $prices->$localcur));
+                formatcurrency($prices[$account->getSymbol()]->USD),
+                formatcurrency($prices[$account->getSymbol()]->$localcur),
+                formatcurrency($account->getBalance() * $prices[$account->getSymbol()]->USD),
+                formatcurrency($account->getBalance() * $prices[$account->getSymbol()]->$localcur));
     }
 }
 echo "</table>\n";
