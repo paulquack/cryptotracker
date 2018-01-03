@@ -32,7 +32,7 @@ foreach($user->getAccounts() as $account){
         printf("    <tr>\n        <td><a href=\"accountStatement.php?account=%u\">%s (%s)</a></td><td class=\"text-right\">%s</td>\n"
                ."        <td class=\"text-right\">%s<br><small>%s</small></td><td class=\"text-right\">%s<br><small>%s</small></td>\n    </tr>\n",
                 $account->getId(), $account->getNickname(), $account->getSymbol(), formatcurrency($account->getBalance()),
-                formatcurrency($price_usd),formatcurrency($price_aud),formatcurrency($value_usd),formatcurrency($value_aud));
+                formatcurrency($price_usd),formatcurrency($price_local),formatcurrency($value_usd),formatcurrency($value_local));
     }
 }
 printf("    <tr><th colspan=\"3\">Total</th><th class=\"text-right\">%s<br><small>%s</small></th></tr>\n",
