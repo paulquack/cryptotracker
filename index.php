@@ -21,7 +21,7 @@ $balance_usd = $balance_local = 0;
 echo "<h1>Account Balances</h1>\n<table class=\"table\">
     <tr><th>Account</th><th class=\"text-right\">Balance</th><th></th><th class=\"text-right\">Price</th><th class=\"text-right\">Value</th><th></th></tr>\n";
 foreach($user->getAccounts() as $account){
-    if ($account->getBalance() > 0) {
+    if ($account->getBalance() != 0) {
         $price_usd = $prices[$account->getSymbol()]->USD;
         $price_local = $prices[$account->getSymbol()]->$localcur;
         $value_usd = $price_usd * $account->getBalance();
