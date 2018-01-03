@@ -6,7 +6,7 @@ $username='quackau';
 $user = new CryptoUser('quackau');
 
 function formatcurrency($a){
-    return(preg_replace('/(\.?0+)$/', '<span class="text-muted">$1</spam>', number_format($a,8)));
+    return(preg_replace('/(\.?0+)$/', '<span class="text-muted">$1</span>', number_format($a,8)));
 }
 
 foreach($user->getAccounts() as $account){
