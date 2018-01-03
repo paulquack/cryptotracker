@@ -23,8 +23,8 @@ echo "<table class=\"table\">
     <tr><th>Account</th><th class=\"text-right\">Balance</th><th class=\"text-right\">Price</th><th class=\"text-right\">Value</th></tr>\n";
 foreach($user->getAccounts() as $account){
     if (count($account->getStatement()) > 0) {
-        printf("    <tr>\n        <td><a href=\"accountStatement.php?account=%u\">%s (%s)</a></td><td class=\"text-right\">%s</td>\n" . _
-               "        <td class=\"text-right\">%s<br><small>%s</small></td><td class=\"text-right\">%s<br><small>%s</small></td>\n    </tr>\n",
+        printf("    <tr>\n        <td><a href=\"accountStatement.php?account=%u\">%s (%s)</a></td><td class=\"text-right\">%s</td>\n"
+               ."        <td class=\"text-right\">%s<br><small>%s</small></td><td class=\"text-right\">%s<br><small>%s</small></td>\n    </tr>\n",
                 $account->getId(), $account->getNickname(), $account->getSymbol(),
                 formatcurrency($account->getBalance()),
                 formatcurrency($prices[$account->getSymbol()]->USD),
