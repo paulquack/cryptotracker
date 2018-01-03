@@ -19,7 +19,7 @@ $prices = (array)json_decode(file_get_contents("https://min-api.cryptocompare.co
 $balance_usd = $balance_local = 0;
 
 echo "<table class=\"table\">
-    <tr><th>Account</th><th>Symbol</th><th class=\"text-right\">Balance</th><th class=\"text-right\">Price</th><th class=\"text-right\">Value</th><th></th></tr>\n";
+    <tr><th>Account</th><th class=\"text-right\">Balance</th><th></th><th class=\"text-right\">Price</th><th class=\"text-right\">Value</th><th></th></tr>\n";
 foreach($user->getAccounts() as $account){
     if (count($account->getStatement()) > 0) {
         $price_usd = $prices[$account->getSymbol()]->USD;
@@ -29,13 +29,13 @@ foreach($user->getAccounts() as $account){
         $balance_usd += $value_usd;
         $balance_local += $value_local;
 
-        printf("    <tr>\n        <td><a href=\"accountStatement.php?account=%u\">%s</a></td><td>%s</td><td class=\"text-right\">%s</td>\n"
+        printf("    <tr>\n        <td><a href=\"accountStatement.php?account=%u\">%s</a></td><td class=\"text-right\">%s</td><td>%s</td>\n"
                ."        <td class=\"text-right\">%s<br><small>%s</small></td><td class=\"text-right\">%s<br><small>%s</small></td><td>USD<br><small>%s</small></td>\n    </tr>\n",
-                $account->getId(), $account->getNickname(), $account->getSymbol(), formatcurrency($account->getBalance()),
+                $account->getId(), $account->getNickname(), formatcurrency($account->getBalance()), $account->getSymbol(), 
                 formatcurrency($price_usd,2),formatcurrency($price_local,2),formatcurrency($value_usd,2),formatcurrency($value_local,2),$localcur);
     }
 }
-printf("    <tr><th colspan=\"3\">Total</th><th class=\"text-right\">%s<br><small>%s</small></th><th>USD<br><small>%s</small></th></tr>\n",
+printf("    <tr><th colspan=\"4\">Total</th><th class=\"text-right\">%s<br><small>%s</small></th><th>USD<br><small>%s</small></th></tr>\n",
        formatcurrency($balance_usd,2), formatcurrency($balance_local,2), $localcur);
 echo "</table>\n";
 include('inc/footer.php')
