@@ -4,6 +4,11 @@ include('inc/classes.php');
 include('inc/header.php');
 $username='quackau';
 $user = new CryptoUser('quackau');
+
+function formatcurrency($a){
+    return(preg_replace('/(\.?0+)$/', '<span class="text-muted">$1</spam>', number_format($a,8)));
+}
+
 foreach($user->getAccounts() as $account){
     $symbols[] = $account->getSymbol();
 }
@@ -18,9 +23,9 @@ foreach($user->getAccounts() as $account){
     if (count($account->getStatement()) > 0) {
         printf("    <tr><td><a href=\"accountStatement.php?account=%u\">%s (%s)</a></td><td class=\"text-right\">%s</td><td class=\"text-right\">%s<br><small>%s</small></td><td class=\"text-right\">%s<br><small>%s</small></td></tr>\n",
                 $account->getId(), $account->getNickname(), $account->getSymbol(),
-                preg_replace('/(\.?0+)$/', '<span class="text-muted">$1</spam>', number_format($account->getBalance(),8)),
-                "USD Price","AUD Price",
-                "USD Value","AUD Value");
+                formatcurrency($account->getBalance()),
+                formatcurrency($prices->USD),formatcurrency($prices->$localcur),
+                formatcurrency($account->getBalance() * $prices->USD),formatcurrency($account->getBalance() * $prices->$localcur));
     }
 }
 echo "</table>\n";
