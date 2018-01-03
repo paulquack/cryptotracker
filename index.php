@@ -5,8 +5,8 @@ include('inc/header.php');
 $username='quackau';
 $user = new CryptoUser('quackau');
 
-function formatcurrency($a){
-    return(preg_replace('/(\.?0+)$/', '<span class="text-muted">$1</span>', number_format($a,8)));
+function formatcurrency($a, $precision = 8){
+    return(preg_replace('/(\.?0+)$/', '<span class="text-muted">$1</span>', number_format($a, $precision)));
 }
 
 foreach($user->getAccounts() as $account){
@@ -32,11 +32,11 @@ foreach($user->getAccounts() as $account){
         printf("    <tr>\n        <td><a href=\"accountStatement.php?account=%u\">%s (%s)</a></td><td class=\"text-right\">%s</td>\n"
                ."        <td class=\"text-right\">%s<br><small>%s</small></td><td class=\"text-right\">%s<br><small>%s</small></td>\n    </tr>\n",
                 $account->getId(), $account->getNickname(), $account->getSymbol(), formatcurrency($account->getBalance()),
-                formatcurrency($price_usd),formatcurrency($price_local),formatcurrency($value_usd),formatcurrency($value_local));
+                formatcurrency($price_usd,2),formatcurrency($price_local,2),formatcurrency($value_usd,2),formatcurrency($value_local,2));
     }
 }
 printf("    <tr><th colspan=\"3\">Total</th><th class=\"text-right\">%s<br><small>%s</small></th></tr>\n",
-       formatcurrency($balance_usd), formatcurrency($balance_local));
+       formatcurrency($balance_usd,2), formatcurrency($balance_local,2));
 echo "</table>\n";
 include('inc/footer.php')
 ?>
